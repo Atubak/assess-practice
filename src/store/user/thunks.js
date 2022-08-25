@@ -4,6 +4,7 @@ import { selectToken } from "./selectors";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
+import { fillSpaceDetails } from "../spaces/slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -18,6 +19,7 @@ export const signUp = (name, email, password) => {
       dispatch(
         loginSuccess({ token: response.data.token, user: response.data.user })
       );
+      dispatch(fillSpaceDetails(response.data.space));
       dispatch(showMessageWithTimeout("success", true, "account created"));
       dispatch(appDoneLoading());
     } catch (error) {

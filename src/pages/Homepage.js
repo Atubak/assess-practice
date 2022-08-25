@@ -1,5 +1,5 @@
 // import { Title } from "../styled";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { LinkWord } from "../styled";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,7 +37,9 @@ export const Homepage = () => {
                 >
                   <h3>{space.title}</h3>
                   <p>{space.description}</p>
-                  <button>visit space</button>
+                  <Link to={`/spaces/${space.id}`}>
+                    <button>visit space</button>
+                  </Link>
                 </div>
               );
             })}
