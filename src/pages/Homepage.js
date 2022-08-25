@@ -7,6 +7,8 @@ import { selectAllSpaces } from "../store/spaces/selectors";
 import { useEffect } from "react";
 import { getAllSpaces } from "../store/spaces/thunks";
 
+import "./Homepage.css";
+
 export const Homepage = () => {
   const dispatch = useDispatch();
   const allSpaces = useSelector(selectAllSpaces());
@@ -25,7 +27,14 @@ export const Homepage = () => {
           ? "no spaces yet"
           : allSpaces.map((space) => {
               return (
-                <div className="space" key={space.id}>
+                <div
+                  className="space"
+                  key={space.id}
+                  style={{
+                    backgroundColor: space.backgroundColor,
+                    color: space.color,
+                  }}
+                >
                   <h3>{space.title}</h3>
                   <p>{space.description}</p>
                   <button>visit space</button>
