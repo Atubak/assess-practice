@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 //thunk
-import { getSpaceDetails } from "../store/spaces/thunks";
+import { getSpaceDetails, deleteStory } from "../store/spaces/thunks";
 
 //selector
 import { selectSpaceDetails } from "../store/spaces/selectors";
@@ -34,10 +34,13 @@ export function SpaceDetails() {
       </div>
       <div id="storiesList">
         {!spaceWithDetails.stories
-          ? "loading"
+          ? "no stories for this user"
           : spaceWithDetails.stories.map((story) => {
               return (
                 <div key={story.id} className="story">
+                  <button onClick={() => dispatch(deleteStory(story.id))}>
+                    Delete Story
+                  </button>
                   <h3>{story.name}</h3>
                   <p>{story.content}</p>
                   <img src={story.imageUrl} alt="" />

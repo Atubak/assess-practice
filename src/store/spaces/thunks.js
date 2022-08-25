@@ -27,3 +27,11 @@ export const getSpaceDetails = (id) => async (dispatch, getState) => {
     console.log(e);
   }
 };
+
+export const deleteStory = (storyId) => async (dispatch, getState) => {
+  try {
+    // const response = await axios.delete(`http://localhost:4000/`)
+  } catch (e) {
+    console.log(e.message);
+  }
+};
