@@ -16,7 +16,6 @@ export function SpaceDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const spaceWithDetails = useSelector(selectSpaceDetails());
-  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(getSpaceDetails(id));
@@ -40,20 +39,6 @@ export function SpaceDetails() {
           : spaceWithDetails.stories.map((story) => {
               return (
                 <div key={story.id} className="story">
-                  {/* {!user.space ? (
-                    ""
-                  ) : user.space.id === id ? (
-                    <button
-                      onClick={() => {
-                        dispatch(deleteStory(story.id));
-                        window.location.reload();
-                      }}
-                    >
-                      Delete Story
-                    </button>
-                  ) : (
-                    ""
-                  )} */}
                   <h3>{story.name}</h3>
                   <p>{story.content}</p>
                   <img src={story.imageUrl} alt="" />

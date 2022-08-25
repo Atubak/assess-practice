@@ -1,0 +1,8 @@
+#storyForm {
+  position: absolute;
+  left: 30%;
+  top: 20%;
+  background-color: beige;
+  padding: 30px;
+  border: 2px solid;
+}
