@@ -14,9 +14,14 @@ const spacesSlice = createSlice({
 
       state.spaces = newSpacesArray;
     },
+    fillSpaceDetails: (state, action) => {
+      const incomingDetails = action.payload;
+
+      state.spaceDetails = incomingDetails;
+    },
   },
 });
 
-export const { fillSpaces } = spacesSlice.actions;
+export const { fillSpaces, fillSpaceDetails } = spacesSlice.actions;
 
 export default spacesSlice.reducer;
