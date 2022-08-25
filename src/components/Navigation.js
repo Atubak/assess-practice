@@ -30,11 +30,11 @@ export const Navigation = () => {
         ) : (
           <MenuLink href="/login">Login</MenuLink>
         )}
-        {!user ? (
+        {/* {!user ? (
           ""
         ) : (
           <MenuLink href={`/spaces/${user.space.id}`}>My Space</MenuLink>
-        )}
+        )} */}
         <MenuLink href="/styled">Empty 2</MenuLink>
       </Menu>
     </Nav>
