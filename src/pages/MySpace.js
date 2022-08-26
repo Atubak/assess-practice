@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deleteStory } from "../store/user/thunks";
+import { deleteStory, updateSpace } from "../store/user/thunks";
 import { useSelector } from "react-redux";
 import { selectUser } from "../store/user/selectors";
 import { useState } from "react";
@@ -177,7 +177,12 @@ export default function MySpace() {
         <button
           type="submit"
           style={{ display: "table", margin: "auto" }}
-          onClick={() => setEditFormActive(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            //dispatch to thunk with all props in form
+            dispatch(updateSpace(editFormInputs));
+            setEditFormActive(false);
+          }}
         >
           Submit
         </button>

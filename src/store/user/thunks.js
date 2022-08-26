@@ -169,3 +169,25 @@ export const createStory =
       console.log(e.message);
     }
   };
+
+//thunk to make a put req with the new properties of the space
+export const updateSpace = (newProps) => async (dispatch, getState) => {
+  const spaceId = getState().user.profile.space.id;
+  const { token } = getState().user;
+
+  try {
+    await axios.put(`http://localhost:4000/spacedetails/${spaceId}`, newProps, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    //if successful request the full space including stories from the endpoint
+    const spaceResponse = await axios.get(
+      `http://localhost:4000/spacedetails/${spaceId}`
+    );
+    console.log(spaceResponse.data);
+
+    dispatch(replaceSpace(spaceResponse.data));
+  } catch (e) {
+    console.log(e.message);
+  }
+};
