@@ -12,27 +12,49 @@ export default function MySpace() {
 
   const [formActive, setFormActive] = useState(false);
 
-  const initialForm = {};
+  const initialForm = { name: "", content: "", imageUrl: "" };
   const [form, setForm] = useState(initialForm);
+
+  const formSetter = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  console.log(form);
 
   const storyForm = (
     <div id="storyForm">
       <form>
         <label>
           Name:
-          <input type="text" />
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={formSetter}
+          />
         </label>
         <br />
         <br />
         <label>
           Content:
-          <input type="text" />
+          <input
+            type="text"
+            name="content"
+            value={form.content}
+            onChange={formSetter}
+          />
         </label>
         <br />
         <br />
         <label>
           ImageUrl:
-          <input type="text" />
+          <input
+            type="text"
+            name="imageUrl"
+            value={form.imageUrl}
+            onChange={formSetter}
+          />
         </label>
         <br />
         <br />
