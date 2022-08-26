@@ -4,14 +4,20 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../store/user/selectors";
 import { useState } from "react";
 
+//thunk
+import { createStory } from "../store/user/thunks";
+import { showMessageWithTimeout } from "../store/appState/thunks";
+
 import "./MySpace.css";
 
 export default function MySpace() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
+  //state for deciding to hide or show the form
   const [formActive, setFormActive] = useState(false);
 
+  //state of the form inputs
   const initialForm = { name: "", content: "", imageUrl: "" };
   const [form, setForm] = useState(initialForm);
 
@@ -20,7 +26,20 @@ export default function MySpace() {
     setForm({ ...form, [name]: value });
   };
 
-  console.log(form);
+  const submitter = (e) => {
+    e.preventDefault();
+    console.log("this should submit a story");
+
+    //make a dispatch to a thunk that creates a new story with the spaceId included
+    dispatch(createStory(form, user.space.id));
+
+    //hide the form and reset the input values
+    setFormActive(false);
+    setForm(initialForm);
+
+    //show success message using the templates message
+    dispatch(showMessageWithTimeout("success", false, "story posted!", 2500));
+  };
 
   const storyForm = (
     <div id="storyForm">
@@ -58,8 +77,16 @@ export default function MySpace() {
         </label>
         <br />
         <br />
-        <img src="" alt="" />
-        <button type="submit">Submit</button>
+        <img src={form.imageUrl} alt="" />
+        <br />
+        <br />
+        <button
+          style={{ display: "table", margin: "auto" }}
+          type="submit"
+          onClick={submitter}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

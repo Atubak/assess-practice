@@ -22,9 +22,13 @@ export const userSlice = createSlice({
     tokenStillValid: (state, action) => {
       state.profile = action.payload.user;
     },
+    replaceSpace: (state, action) => {
+      state.profile.space = action.payload;
+    },
   },
 });
 
-export const { loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { loginSuccess, logOut, tokenStillValid, replaceSpace } =
+  userSlice.actions;
 
 export default userSlice.reducer;

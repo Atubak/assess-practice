@@ -3,7 +3,7 @@ import axios from "axios";
 import { selectToken } from "./selectors";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
-import { loginSuccess, logOut, tokenStillValid } from "./slice";
+import { loginSuccess, logOut, tokenStillValid, replaceSpace } from "./slice";
 import { fillSpaceDetails } from "../spaces/slice";
 
 export const signUp = (name, email, password) => {
@@ -118,3 +118,44 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+export const deleteStory = (storyId) => async (dispatch, getState) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:4000/spacedetails/${storyId}`
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const createStory =
+  (storyObject, spaceId) => async (dispatch, getState) => {
+    const token = getState().user.token;
+    // console.log(getState().user);
+    try {
+      //make a post request to the server with the story object
+      const response = await axios.post(
+        `http://localhost:4000/stories/create/${spaceId}`,
+        storyObject,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      console.log(
+        "createStory thunk returning the successful added story from db",
+        response.data
+      );
+
+      //if successful request the full space including stories from the endpoint
+      const spaceResponse = await axios.get(
+        `http://localhost:4000/spacedetails/${spaceId}`
+      );
+      console.log(spaceResponse.data);
+      //dispatch to the store and replace the old user space state
+      dispatch(replaceSpace(spaceResponse.data));
+      //trigger a success message if the response was good
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
