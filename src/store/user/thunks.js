@@ -120,11 +120,22 @@ export const getUserWithStoredToken = () => {
 };
 
 export const deleteStory = (storyId) => async (dispatch, getState) => {
+  const spaceId = getState().user.profile.space.id;
+
   try {
     const response = await axios.delete(
       `http://localhost:4000/spacedetails/${storyId}`
     );
     console.log(response.data);
+
+    //send dispatch that replaces the updated space in state
+
+    const spaceResponse = await axios.get(
+      `http://localhost:4000/spacedetails/${spaceId}`
+    );
+    console.log(spaceResponse.data);
+
+    dispatch(replaceSpace(spaceResponse.data));
   } catch (e) {
     console.log(e.message);
   }
@@ -154,7 +165,6 @@ export const createStory =
       console.log(spaceResponse.data);
       //dispatch to the store and replace the old user space state
       dispatch(replaceSpace(spaceResponse.data));
-      //trigger a success message if the response was good
     } catch (e) {
       console.log(e.message);
     }

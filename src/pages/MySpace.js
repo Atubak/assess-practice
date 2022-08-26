@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deleteStory } from "../store/spaces/thunks";
+import { deleteStory } from "../store/user/thunks";
 import { useSelector } from "react-redux";
 import { selectUser } from "../store/user/selectors";
 import { useState } from "react";
@@ -35,7 +35,7 @@ export default function MySpace() {
 
     //hide the form and reset the input values
     setFormActive(false);
-    setForm(initialForm);
+    // setForm(initialForm);
 
     //show success message using the templates message
     dispatch(showMessageWithTimeout("success", false, "story posted!", 2500));
@@ -114,8 +114,8 @@ export default function MySpace() {
                   <div key={story.id} className="story">
                     <button
                       onClick={() => {
-                        //   dispatch(deleteStory(story.id));
-                        //   window.location.reload();
+                        dispatch(deleteStory(story.id));
+
                         console.log("this should delete a story");
                       }}
                     >
