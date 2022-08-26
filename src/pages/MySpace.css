@@ -5,4 +5,25 @@
   background-color: beige;
   padding: 30px;
   border: 2px solid;
+  z-index: 1;
+}
+
+#editForm {
+  position: fixed;
+  left: 30%;
+  top: 20%;
+  background-color: beige;
+  padding: 30px;
+  border: 2px solid;
+  z-index: 1;
+}
+
+#opaqueDiv {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
 }
